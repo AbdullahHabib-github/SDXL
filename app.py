@@ -93,10 +93,10 @@ def main():
 
     # Input parameters using Streamlit widgets
     prompt = st.text_area("Prompt", "A realistic High-Quality photo of outdoor area in a stylish Scandinavian vacation bungalow, Black house, Forest, sunlight, wooden porch")
-    neg_prompt = st.text_area("Negative Prompt", "")
+    neg_prompt = st.text_area("Negative Prompt", "wrong,furniture, unnatural lighting")
     cfg = st.slider("CFG", min_value=7.0, max_value=15.0, step=0.5, value=15.0)
     seed = st.number_input("Seed", value=-1, step=1)
-    webp_output = st.checkbox("WebP Output")
+    webp_output = False
 
     # Generate image button
     if st.button("Generate Image"):
