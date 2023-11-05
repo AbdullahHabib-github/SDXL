@@ -9,6 +9,8 @@ from PIL import Image
 class Model():
     def __init__(self):
         print("hehahehahhfaef")
+        torch.cuda.empty_cache()
+
         vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
                                             torch_dtype=torch.float16)
         self.base = DiffusionPipeline.from_pretrained(
@@ -39,7 +41,8 @@ class Model():
 
         self.compel_base = Compel(tokenizer=[self.base.tokenizer, self.base.tokenizer_2] , text_encoder=[self.base.text_encoder, self.base.text_encoder_2], returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=[False, True])
         self.compel_refiner = Compel(tokenizer=self.refiner.tokenizer_2 , text_encoder=self.refiner.text_encoder_2, returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=True)
-        
+        torch.cuda.empty_cache()
+
 
 
     def gen_image(self,source_prompt, negative_prompt,cfg=13, seed=-1, webp_output=True):
@@ -47,6 +50,7 @@ class Model():
             seed = randint(0, 10**8)
             print(f"Seed: {seed}")
         # return Image.open("8f2563f8-d71c-4ea5-b20f-c4493c8b382a.jpeg")
+        torch.cuda.empty_cache()
 
         high_noise_frac = 0.8
         prompt = source_prompt
@@ -81,6 +85,8 @@ class Model():
             image=latents,
             generator=generator,
             ).images
+        
+        torch.cuda.empty_cache()
 
         image = images[0]
 
