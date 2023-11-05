@@ -8,6 +8,9 @@ from random import randint
 
 import torch
 
+torch.cuda.empty_cache()
+
+
 vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
                                     torch_dtype=torch.float16)
 base = DiffusionPipeline.from_pretrained(
@@ -108,9 +111,11 @@ def app():
     seed = st.number_input("Seed", value=-1, step=1)
     webp_output = False
 
+
     # Generate image button
     if st.button("Generate Image"):
         # Call your image generation function
+        torch.cuda.empty_cache()
         generated_image = gen_image(prompt,neg_prompt, cfg, seed, webp_output)
         torch.cuda.empty_cache()
         allocated_memory = torch.cuda.memory_allocated()
