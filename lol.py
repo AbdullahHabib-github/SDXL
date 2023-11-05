@@ -108,9 +108,9 @@ def main():
 
     # Input parameters using Streamlit widgets
     prompt = st.text_area("Prompt", "A realistic High-Quality photo of outdoor area in a stylish Scandinavian vacation bungalow, Black house, Forest, sunlight, wooden porch")
-    neg_prompt = st.text_area("Negative Prompt", "")
+    neg_prompt = st.text_area("Negative Prompt", "wrong,furniture, unnatural lighting")
     cfg = st.slider("CFG", min_value=7.0, max_value=15.0, step=0.5, value=15.0)
-    high_noise_frac = st.slider("High Noise Factor", min_value=0.0, max_value=15.0, step=0.5, value=.8)
+    high_noise_frac = st.slider("High Noise Factor", min_value=0.0, max_value=1.0, step=0.05, value=0.8)
     seed = st.number_input("Seed", value=-1, step=1)
     webp_output = st.checkbox("WebP Output")
 
