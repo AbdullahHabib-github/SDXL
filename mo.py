@@ -7,7 +7,7 @@ from random import randint
 from PIL import Image
 
 class Model():
-    def init(self):
+    def __init__(self):
         print("hehahehahhfaef")
         vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
                                             torch_dtype=torch.float16)
