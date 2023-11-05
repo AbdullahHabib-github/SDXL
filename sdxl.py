@@ -2,7 +2,6 @@ from diffusers import DiffusionPipeline
 import torch
 from compel import Compel, ReturnedEmbeddingsType
 from diffusers import DiffusionPipeline, AutoencoderKL
-from tqdm.auto import tqdm
 from random import randint
 from PIL import Image
 
@@ -45,7 +44,7 @@ class Model():
 
 
 
-    def gen_image(self,source_prompt, negative_prompt,cfg=13, seed=-1, webp_output=True):
+    def gen_image(self,source_prompt, negative_prompt = "wrong" ,high_noise_frac = 0.8, cfg=13, seed=-1, webp_output=False):
         if seed < 0:
             seed = randint(0, 10**8)
             print(f"Seed: {seed}")
@@ -98,4 +97,4 @@ class Model():
         else:
             image.save("img.png")
 
-        return Image.open(img)
+        return (Image.open(img),seed)
