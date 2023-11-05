@@ -5,6 +5,7 @@ from diffusers import DiffusionPipeline, AutoencoderKL
 from PIL import Image
 import streamlit as st
 from random import randint
+
 vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
                                     torch_dtype=torch.float16)
 base = DiffusionPipeline.from_pretrained(
