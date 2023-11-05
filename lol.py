@@ -123,4 +123,5 @@ def main():
         st.image(generated_image, caption="Generated Image", use_column_width=True)
 
 if __name__ == "__main__":
+    st.session_state.models_loaded = False
     main()

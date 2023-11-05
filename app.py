@@ -89,7 +89,7 @@ def gen_image(source_prompt, negative_prompt, cfg=13, seed=-1, webp_output=True)
 
 
 def main():
-    st.title("Image Generation App")
+    st.title("Cinas Photo Ginie")
 
     # Input parameters using Streamlit widgets
     prompt = st.text_area("Prompt", "A realistic High-Quality photo of outdoor area in a stylish Scandinavian vacation bungalow, Black house, Forest, sunlight, wooden porch")
