@@ -41,7 +41,7 @@ def app():
 
         print("lolallocated_memory", allocated_memory)
         print("lolcached_memory", cached_memory)
-        st.text("Seed set to {generated_image[1]}")
+        st.text(f"Seed set to {generated_image[1]}")
         # Display the generated image
         st.image(generated_image[0], caption="Generated Image", use_column_width=True)
 
