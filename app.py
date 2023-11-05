@@ -88,7 +88,7 @@ def gen_image(source_prompt, negative_prompt, cfg=13, seed=-1, webp_output=True)
         return Image.open("img.png")
 
 
-def main():
+def app():
     st.title("Cinas Photo Ginie")
     torch.cuda.empty_cache()
     # Input parameters using Streamlit widgets
@@ -107,5 +107,5 @@ def main():
         # Display the generated image
         st.image(generated_image, caption="Generated Image", use_column_width=True)
 
-if __name__ == "__main__":
-    main()
+# torch.cuda.empty_cache()
+app()
