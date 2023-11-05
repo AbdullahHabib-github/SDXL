@@ -6,6 +6,13 @@ from PIL import Image
 import streamlit as st
 from random import randint
 
+import torch
+
+# Limit GPU memory growth
+torch.cuda.set_per_process_memory_fraction(0.5)
+torch.cuda.set_per_process_memory_growth(True)
+
+
 vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
                                     torch_dtype=torch.float16)
 base = DiffusionPipeline.from_pretrained(
