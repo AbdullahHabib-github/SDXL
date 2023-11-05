@@ -18,7 +18,7 @@ base = DiffusionPipeline.from_pretrained(
 base.load_lora_weights("minimaxir/sdxl-wrong-lora")
 
 _ = base.to("cuda")
-base.enable_model_cpu_offload()  # recommended for T4 GPU if enough system RAM
+# base.enable_model_cpu_offload()  # recommended for T4 GPU if enough system RAM
 
 refiner = DiffusionPipeline.from_pretrained(
     "stabilityai/stable-diffusion-xl-refiner-1.0",
