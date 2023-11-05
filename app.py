@@ -90,7 +90,7 @@ def gen_image(source_prompt, negative_prompt, cfg=13, seed=-1, webp_output=True)
 
 def main():
     st.title("Cinas Photo Ginie")
-
+    torch.cuda.empty_cache()
     # Input parameters using Streamlit widgets
     prompt = st.text_area("Prompt", "A realistic High-Quality photo of outdoor area in a stylish Scandinavian vacation bungalow, Black house, Forest, sunlight, wooden porch")
     neg_prompt = st.text_area("Negative Prompt", "wrong,furniture, unnatural lighting")
@@ -102,6 +102,7 @@ def main():
     if st.button("Generate Image"):
         # Call your image generation function
         generated_image = gen_image(prompt,neg_prompt, cfg, seed, webp_output)
+        torch.cuda.empty_cache()
 
         # Display the generated image
         st.image(generated_image, caption="Generated Image", use_column_width=True)
