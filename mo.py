@@ -84,7 +84,12 @@ class Model():
 
         image = images[0]
 
+        img="img.png"
+
         if webp_output:
+            img = "img.webp"
             image.save("img.webp", format="webp")
         else:
             image.save("img.png")
+
+        return Image.open(img)
