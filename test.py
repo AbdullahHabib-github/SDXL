@@ -3,15 +3,17 @@ import torch
 import streamlit as st
 
 torch.cuda.empty_cache()
-generator = Model()
+@st.cache_resource
+def mod():
+    return Model()
+generator = mod()
 
+torch.cuda.empty_cache()
 
-
+# @st.cache_data
 def app():
     st.title("Cinas Photo Ginie")
     torch.cuda.empty_cache()
-
-    generator = Model()
 
     allocated_memory = torch.cuda.memory_allocated()
     cached_memory = torch.cuda.memory_reserved()
