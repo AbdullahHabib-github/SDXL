@@ -9,36 +9,36 @@ from PIL import Image
 class Model():
     def __init__(self):
         print("hehahehahhfaef")
-        # vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
-        #                                     torch_dtype=torch.float16)
-        # self.base = DiffusionPipeline.from_pretrained(
-        #     "stabilityai/stable-diffusion-xl-base-1.0",
-        #     vae=vae,
-        #     torch_dtype=torch.float16,
-        #     variant="fp16",
-        #     use_safetensors=True
-        # )
+        vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
+                                            torch_dtype=torch.float16)
+        self.base = DiffusionPipeline.from_pretrained(
+            "stabilityai/stable-diffusion-xl-base-1.0",
+            vae=vae,
+            torch_dtype=torch.float16,
+            variant="fp16",
+            use_safetensors=True
+        )
 
-        # self.base.load_lora_weights("minimaxir/sdxl-wrong-lora")
+        self.base.load_lora_weights("minimaxir/sdxl-wrong-lora")
 
-        # _ = self.base.to("cuda")
-        # # base.enable_model_cpu_offload()  # recommended for T4 GPU if enough system RAM
+        _ = self.base.to("cuda")
+        # base.enable_model_cpu_offload()  # recommended for T4 GPU if enough system RAM
 
-        # self.refiner = DiffusionPipeline.from_pretrained(
-        #     "stabilityai/stable-diffusion-xl-refiner-1.0",
-        #     text_encoder_2=self.base.text_encoder_2,
-        #     vae=self.base.vae,
-        #     torch_dtype=torch.float16,
-        #     use_safetensors=True,
-        #     variant="fp16",
-        # )
+        self.refiner = DiffusionPipeline.from_pretrained(
+            "stabilityai/stable-diffusion-xl-refiner-1.0",
+            text_encoder_2=self.base.text_encoder_2,
+            vae=self.base.vae,
+            torch_dtype=torch.float16,
+            use_safetensors=True,
+            variant="fp16",
+        )
 
-        # _ = self.refiner.to("cuda")
+        _ = self.refiner.to("cuda")
 
 
 
-        # self.compel_base = Compel(tokenizer=[self.base.tokenizer, self.base.tokenizer_2] , text_encoder=[self.base.text_encoder, self.base.text_encoder_2], returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=[False, True])
-        # self.compel_refiner = Compel(tokenizer=self.refiner.tokenizer_2 , text_encoder=self.refiner.text_encoder_2, returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=True)
+        self.compel_base = Compel(tokenizer=[self.base.tokenizer, self.base.tokenizer_2] , text_encoder=[self.base.text_encoder, self.base.text_encoder_2], returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=[False, True])
+        self.compel_refiner = Compel(tokenizer=self.refiner.tokenizer_2 , text_encoder=self.refiner.text_encoder_2, returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED, requires_pooled=True)
         
 
 
