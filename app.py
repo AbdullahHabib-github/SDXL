@@ -8,11 +8,6 @@ from random import randint
 
 import torch
 
-# Limit GPU memory growth
-torch.cuda.set_per_process_memory_fraction(0.5)
-torch.cuda.set_per_process_memory_growth(True)
-
-
 vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
                                     torch_dtype=torch.float16)
 base = DiffusionPipeline.from_pretrained(
@@ -84,6 +79,7 @@ def gen_image(source_prompt, negative_prompt, cfg=13, seed=-1, webp_output=True)
         image=latents,
         generator=generator,
         ).images
+    torch.cuda.empty_cache()
 
     image = images[0]
 
@@ -99,6 +95,12 @@ def gen_image(source_prompt, negative_prompt, cfg=13, seed=-1, webp_output=True)
 def app():
     st.title("Cinas Photo Ginie")
     torch.cuda.empty_cache()
+    allocated_memory = torch.cuda.memory_allocated()
+    cached_memory = torch.cuda.memory_cached()
+
+    print("allocated_memory",allocated_memory)
+    print("cached_memory",cached_memory)
+
     # Input parameters using Streamlit widgets
     prompt = st.text_area("Prompt", "A realistic High-Quality photo of outdoor area in a stylish Scandinavian vacation bungalow, Black house, Forest, sunlight, wooden porch")
     neg_prompt = st.text_area("Negative Prompt", "wrong,furniture, unnatural lighting")
@@ -111,7 +113,11 @@ def app():
         # Call your image generation function
         generated_image = gen_image(prompt,neg_prompt, cfg, seed, webp_output)
         torch.cuda.empty_cache()
+        allocated_memory = torch.cuda.memory_allocated()
+        cached_memory = torch.cuda.memory_cached()
 
+        print("lolallocated_memory",allocated_memory)
+        print("lolcached_memory",cached_memory)
         # Display the generated image
         st.image(generated_image, caption="Generated Image", use_column_width=True)
 
