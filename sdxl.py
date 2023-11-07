@@ -51,9 +51,9 @@ class Model():
         # return Image.open("8f2563f8-d71c-4ea5-b20f-c4493c8b382a.jpeg")
         torch.cuda.empty_cache()
 
-        high_noise_frac = 0.8
+        # high_noise_frac = 0.8
         prompt = source_prompt
-        negative_prompt = "wrong"  # hardcoding
+        # negative_prompt = "wrong"  # hardcoding
 
         conditioning, pooled = self.compel_base(prompt)
         conditioning_neg, pooled_neg = self.compel_base(negative_prompt) if negative_prompt is not None else (None, None)
