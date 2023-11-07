@@ -33,7 +33,10 @@ def app():
     # Generate image button
     if st.button("Generate Image"):
         # Call your image generation function
+        message_placeholder = st.empty()
+        message_placeholder.text("Wait while I do the magic...")
         torch.cuda.empty_cache()
+
         generated_image = generator.gen_image(prompt, neg_prompt,high_noise_frac, cfg, seed, webp_output)
         torch.cuda.empty_cache()
         allocated_memory = torch.cuda.memory_allocated()
@@ -41,7 +44,9 @@ def app():
 
         print("lolallocated_memory", allocated_memory)
         print("lolcached_memory", cached_memory)
+        message_placeholder.text("Voila!")
         st.text(f"Seed set to {generated_image[1]}")
+
         # Display the generated image
         st.image(generated_image[0], caption="Generated Image", use_column_width=True)
 
