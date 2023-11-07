@@ -4,9 +4,9 @@ import streamlit as st
 
 torch.cuda.empty_cache()
 @st.cache_resource
-def mod():
+def calling_the_genie():
     return Model()
-generator = mod()
+generator = calling_the_genie()
 
 torch.cuda.empty_cache()
 
